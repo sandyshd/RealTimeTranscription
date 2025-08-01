@@ -3,11 +3,11 @@
 
 const AzureConfig = {
     // Your Azure Speech Service subscription key
-    subscriptionKey: 'Your Azure Speech Service subscription key',
+    speech_service_resource_key: 'Your Azure Speech Service subscription key',
     
     // Your Azure region (extracted from endpoint: santechlab.cognitiveservices.azure.com)
     // Common regions: 'eastus', 'westus', 'westus2', 'eastus2', 'centralus', 'northeurope', 'westeurope'
-    serviceRegion: 'eastus',
+    speech_service_region: 'eastus',
     
     // Default language for speech recognition
     // Common values: 'en-US', 'en-GB', 'es-ES', 'fr-FR', 'de-DE', 'it-IT', 'pt-BR', 'zh-CN', 'ja-JP'

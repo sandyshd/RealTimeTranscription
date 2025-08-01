@@ -46,8 +46,8 @@ A modern, responsive web application that provides real-time speech-to-text tran
 
 ```javascript
 const AzureConfig = {
-    subscriptionKey: 'YOUR_SUBSCRIPTION_KEY',
-    serviceRegion: 'YOUR_REGION', // e.g., 'eastus'
+    speech_service_resource_key: 'YOUR_SUBSCRIPTION_KEY',
+    speech_service_region: 'YOUR_REGION', // e.g., 'eastus'
     language: 'en-US',
     translation: {
         defaultTargetLanguage: 'es', // Default to Spanish
@@ -206,10 +206,10 @@ Then modify your `config.js` to use environment variables in production:
 
 ```javascript
 const AzureConfig = {
-    subscriptionKey: window.location.hostname === 'localhost' 
+    speech_service_resource_key: window.location.hostname === 'localhost' 
         ? 'YOUR_LOCAL_DEV_KEY'
         : 'Your Azure Speech Service subscription key',
-    serviceRegion: window.location.hostname === 'localhost' 
+    speech_service_region: window.location.hostname === 'localhost' 
         ? 'eastus'
         : 'eastus',
     // ... rest of config

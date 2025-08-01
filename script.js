@@ -1,12 +1,12 @@
 class RealTimeTranscription {
     constructor() {
         // Azure Speech Service Configuration
-        this.subscriptionKey = AzureConfig.subscriptionKey;
-        this.serviceRegion = AzureConfig.serviceRegion;
+        this.speech_service_resource_key = AzureConfig.speech_service_resource_key;
+        this.speech_service_region = AzureConfig.speech_service_region;
         this.language = AzureConfig.language;
         
         // Translation Service
-        this.translationService = new TranslationService(this.subscriptionKey, this.serviceRegion);
+        this.translationService = new TranslationService(this.speech_service_resource_key, this.speech_service_region);
         this.isTranslationEnabled = false;
         this.translatedWordCount = 0;
         
@@ -71,7 +71,7 @@ class RealTimeTranscription {
     initializeSpeechService() {
         try {
             // Initialize Azure Speech SDK
-            this.speechConfig = SpeechSDK.SpeechConfig.fromSubscription(this.subscriptionKey, this.serviceRegion);
+            this.speechConfig = SpeechSDK.SpeechConfig.fromSubscription(this.speech_service_resource_key, this.speech_service_region);
             this.speechConfig.speechRecognitionLanguage = this.language;
             
             // Enable detailed result with confidence scores

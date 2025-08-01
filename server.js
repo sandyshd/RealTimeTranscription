@@ -47,8 +47,8 @@ app.get('/health', (req, res) => {
 // API endpoint to serve configuration (for environment-based config)
 app.get('/api/config', (req, res) => {
     const config = {
-        subscriptionKey: process.env.AZURE_SUBSCRIPTION_KEY || 'YOUR_KEY_HERE',
-        serviceRegion: process.env.AZURE_REGION || 'eastus',
+        speech_service_resource_key: process.env.AZURE_SUBSCRIPTION_KEY || 'YOUR_KEY_HERE',
+        speech_service_region: process.env.AZURE_REGION || 'eastus',
         language: process.env.DEFAULT_LANGUAGE || 'en-US'
     };
     res.json(config);

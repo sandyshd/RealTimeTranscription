@@ -1,8 +1,8 @@
 // Azure Translation Service Module
 class TranslationService {
-    constructor(subscriptionKey, region) {
-        this.subscriptionKey = subscriptionKey;
-        this.region = region;
+    constructor(speech_service_resource_key, speech_service_region) {
+        this.speech_service_resource_key = speech_service_resource_key;
+        this.speech_service_region = speech_service_region;
         this.endpoint = AzureConfig.translation.endpoint;
         this.isEnabled = false;
         this.targetLanguage = null;
@@ -58,8 +58,8 @@ class TranslationService {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-                'Ocp-Apim-Subscription-Key': this.subscriptionKey,
-                'Ocp-Apim-Subscription-Region': this.region,
+                'Ocp-Apim-Subscription-Key': this.speech_service_resource_key,
+                'Ocp-Apim-Subscription-Region': this.speech_service_region,
                 'Content-Type': 'application/json',
                 'X-ClientTraceId': this.generateTraceId()
             },
@@ -94,8 +94,8 @@ class TranslationService {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    'Ocp-Apim-Subscription-Key': this.subscriptionKey,
-                    'Ocp-Apim-Subscription-Region': this.region,
+                    'Ocp-Apim-Subscription-Key': this.speech_service_resource_key,
+                    'Ocp-Apim-Subscription-Region': this.speech_service_region,
                     'Content-Type': 'application/json',
                     'X-ClientTraceId': this.generateTraceId()
                 },
