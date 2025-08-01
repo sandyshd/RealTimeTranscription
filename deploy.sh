@@ -125,7 +125,7 @@ echo -e "   - AZURE_REGION: $LOCATION"
 # Update config.js with production values
 echo -e "${YELLOW}📝 Updating config.js for production...${NC}"
 cp config.js config.js.backup
-sed -i "s/VIFPWqX1DeTSOeMdqmyrPwrexEvPOMoGl13xT1zimZBrb8a3tk7UJQQJ99BAACYeBjFXJ3w3AAAAACOGuWJo/$SPEECH_KEY/g" config.js
+sed -i "s/Your Azure Speech Service subscription key/$SPEECH_KEY/g" config.js
 
 echo -e "${GREEN}🎉 Deployment setup complete!${NC}"
 echo -e "${YELLOW}Next steps:${NC}"
