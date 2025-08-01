@@ -199,8 +199,8 @@ jobs:
 1. In Azure Portal, go to your Static Web App
 2. Navigate to "Configuration"
 3. Add application settings:
-   - `AZURE_SUBSCRIPTION_KEY`: Your Azure subscription key
-   - `AZURE_REGION`: Your Azure region
+   - `AZURE_SPEECH_SUBSCRIPTION_KEY`: Your Azure subscription key
+   - `AZURE_SPEECH_SERVICE_REGION`: Your Azure region
 
 Then modify your `config.js` to use environment variables in production:
 
