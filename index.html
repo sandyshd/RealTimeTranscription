@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Call Transcription</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-headset"></i>
+                    <h1>Live Call Transcription</h1>
+                </div>
+                <div class="status-indicator">
+                    <span id="connection-status" class="status-badge disconnected">Disconnected</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Panel -->
+        <main class="main-panel">
+            <!-- Left Panel - Microphone Status -->
+            <aside class="left-panel">
+                <div class="mic-panel">
+                    <h3><i class="fas fa-microphone"></i> Microphone</h3>
+                    <div class="mic-status">
+                        <div id="mic-indicator" class="mic-indicator inactive">
+                            <i class="fas fa-microphone-slash"></i>
+                        </div>
+                        <span id="mic-status-text">Inactive</span>
+                    </div>
+                    <div class="audio-level">
+                        <label>Audio Level:</label>
+                        <div class="level-bar">
+                            <div id="audio-level-fill" class="level-fill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy Notice -->
+                <div class="privacy-notice">
+                    <h4><i class="fas fa-shield-alt"></i> Privacy Notice</h4>
+                    <p>Your voice is being transcribed in real-time using Azure AI. Audio is not stored permanently.</p>
+                </div>
+            </aside>
+
+            <!-- Center Panel - Transcription and Translation Feed -->
+            <section class="center-panel">
+                <div class="transcription-header">
+                    <div class="header-controls">
+                        <h3><i class="fas fa-comments"></i> Live Transcription & Translation</h3>
+                        <div class="language-controls">
+                            <label for="target-language">Translate to:</label>
+                            <select id="target-language" class="language-selector">
+                                <option value="">No Translation</option>
+                            </select>
+                            <button id="toggle-translation" class="toggle-translation-btn" title="Enable/Disable Translation">
+                                <i class="fas fa-language"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button id="clear-transcript" class="clear-btn" title="Clear Transcript">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                
+                <div class="dual-feed-container">
+                    <!-- Original Transcription -->
+                    <div class="transcription-section">
+                        <div class="section-header">
+                            <h4><i class="fas fa-microphone"></i> Original Speech</h4>
+                            <span id="source-language" class="language-badge">English</span>
+                        </div>
+                        <div id="transcription-feed" class="transcription-feed">
+                            <div class="welcome-message">
+                                <i class="fas fa-info-circle"></i>
+                                <p>Click "Start Recording" to begin real-time transcription</p>
+                            </div>
+                        </div>
+                        <div id="interim-text" class="interim-text"></div>
+                    </div>
+                    
+                    <!-- Translation -->
+                    <div class="translation-section" id="translation-section">
+                        <div class="section-header">
+                            <h4><i class="fas fa-language"></i> Translation</h4>
+                            <span id="target-language-badge" class="language-badge">Select Language</span>
+                        </div>
+                        <div id="translation-feed" class="translation-feed">
+                            <div class="translation-disabled-message">
+                                <i class="fas fa-language"></i>
+                                <p>Select a target language to enable real-time translation</p>
+                            </div>
+                        </div>
+                        <div id="interim-translation" class="interim-translation"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel - Call Metadata -->
+            <aside class="right-panel">
+                <div class="metadata-panel">
+                    <h3><i class="fas fa-chart-line"></i> Session Info</h3>
+                    <div class="metadata-item">
+                        <label>Duration:</label>
+                        <span id="session-duration">00:00:00</span>
+                    </div>
+                    <div class="metadata-item">
+                        <label>Words Count:</label>
+                        <span id="word-count">0</span>
+                    </div>
+                    <div class="metadata-item">
+                        <label>Confidence:</label>
+                        <span id="confidence-score">--</span>
+                    </div>
+                    <div class="metadata-item">
+                        <label>Source Language:</label>
+                        <span id="detected-language">en-US</span>
+                    </div>
+                    <div class="metadata-item">
+                        <label>Translation:</label>
+                        <span id="translation-status">Disabled</span>
+                    </div>
+                    <div class="metadata-item">
+                        <label>Translated Words:</label>
+                        <span id="translated-word-count">0</span>
+                    </div>
+                </div>
+
+                <!-- Export Options -->
+                <div class="export-panel">
+                    <h4><i class="fas fa-download"></i> Export</h4>
+                    <button id="export-txt" class="export-btn">
+                        <i class="fas fa-file-text"></i> Export as TXT
+                    </button>
+                    <button id="export-json" class="export-btn">
+                        <i class="fas fa-file-code"></i> Export as JSON
+                    </button>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Footer Controls -->
+        <footer class="footer">
+            <div class="controls">
+                <button id="start-btn" class="control-btn start-btn">
+                    <i class="fas fa-play"></i>
+                    <span>Start Recording</span>
+                </button>
+                <button id="stop-btn" class="control-btn stop-btn" disabled>
+                    <i class="fas fa-stop"></i>
+                    <span>Stop Recording</span>
+                </button>
+                <button id="pause-btn" class="control-btn pause-btn" disabled>
+                    <i class="fas fa-pause"></i>
+                    <span>Pause</span>
+                </button>
+            </div>
+            <div class="status-messages">
+                <div id="status-message" class="status-message">Ready to start transcription</div>
+            </div>
+            <div class="azure-branding">
+                <span>Powered by <strong>Microsoft Azure AI</strong></span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Microsoft Cognitive Services Speech SDK -->
+    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+    <script src="config.js"></script>
+    <script src="translation.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

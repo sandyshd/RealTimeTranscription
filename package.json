@@ -1,0 +1,52 @@
+{
+  "name": "realtime-transcription",
+  "version": "1.0.0",
+  "description": "A modern real-time speech-to-text transcription with translation web application using Azure Cognitive Services",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "local": "http-server -p 8000 -c-1 -o",
+    "serve": "python -m http.server 8000",
+    "test": "echo \"No tests specified\" && exit 0",
+    "build": "echo \"No build step required for static app\" && exit 0"
+  },
+  "keywords": [
+    "speech-to-text",
+    "real-time",
+    "transcription",
+    "translation",
+    "azure",
+    "cognitive-services",
+    "web-audio-api",
+    "javascript",
+    "responsive-design"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "compression": "^1.7.4"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sandyshd/realtime-transcription.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sandyshd/realtime-transcription/issues"
+  },
+  "homepage": "https://github.com/sandyshd/realtime-transcription#readme",
+  "browserslist": [
+    "Chrome >= 60",
+    "Firefox >= 55",
+    "Edge >= 79",
+    "Safari >= 14"
+  ]
+}
