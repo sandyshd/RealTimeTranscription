@@ -1,0 +1,11 @@
+{
+  "name": "realtime-transcription-api",
+  "version": "1.0.0",
+  "description": "Azure Functions API for Real-time Transcription",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests specified\""
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
