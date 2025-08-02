@@ -704,7 +704,12 @@ class RealTimeTranscription {
 }
 
 // Initialize the application when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Fetch config from backend API and set window._env_ (for static hosting)
+    if (typeof fetchAndSetEnvFromApi === 'function') {
+        await fetchAndSetEnvFromApi();
+    }
+
     // Check for required browser features
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         alert('Your browser does not support microphone access. Please use a modern browser like Chrome, Firefox, or Edge.');

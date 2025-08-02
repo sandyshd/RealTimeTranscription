@@ -46,12 +46,12 @@ app.get('/health', (req, res) => {
 
 // API endpoint to serve configuration (for environment-based config)
 app.get('/api/config', (req, res) => {
-    const config = {
-        speech_service_resource_key: process.env.AZURE_SUBSCRIPTION_KEY || 'YOUR_KEY_HERE',
-        speech_service_region: process.env.AZURE_REGION || 'eastus',
-        language: process.env.DEFAULT_LANGUAGE || 'en-US'
-    };
-    res.json(config);
+  res.json({
+    speechKey: process.env.AZURE_SPEECH_SUBSCRIPTION_KEY || '',
+    speechRegion: process.env.AZURE_SPEECH_SERVICE_REGION || '',
+    language: process.env.AZURE_SPEECH_LANGUAGE || 'en-US',
+    defaultTargetLanguage: process.env.DEFAULT_TARGET_LANGUAGE || 'es'
+  });
 });
 
 // Serve index.html for all other routes (SPA support)

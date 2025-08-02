@@ -1,9 +1,9 @@
 // Azure Speech Service Configuration
 // Update these values with your Azure Speech Service credentials
 
+
 // Helper to get environment variable in browser (from window) or Node.js (from process.env)
 function getEnvVar(name, fallback) {
-    // For debugging: log which environment is being checked
     if (typeof window !== 'undefined') {
         if (window._env_ && window._env_[name]) {
             console.log(`[AzureConfig] Using window._env_['${name}'] for ${name}`);
@@ -17,8 +17,28 @@ function getEnvVar(name, fallback) {
     console.warn(`[AzureConfig] Using fallback for ${name}`);
     return fallback;
 }
-// For local browser development, you must inject window._env_ in a <script> tag in index.html before loading config.js, e.g.:
-// <script>window._env_ = { AZURE_SPEECH_SUBSCRIPTION_KEY: 'your-key', AZURE_SPEECH_SERVICE_REGION: 'your-region' };</script>
+
+// For static hosting: fetch config from secure backend API and set window._env_ at runtime
+async function fetchAndSetEnvFromApi() {
+    if (typeof window === 'undefined') return;
+    try {
+        const res = await fetch('/api/config');
+        if (!res.ok) throw new Error('Failed to fetch /api/config');
+        const cfg = await res.json();
+        window._env_ = window._env_ || {};
+        if (cfg.speechKey) window._env_.AZURE_SPEECH_SUBSCRIPTION_KEY = cfg.speechKey;
+        if (cfg.speechRegion) window._env_.AZURE_SPEECH_SERVICE_REGION = cfg.speechRegion;
+        if (cfg.language) window._env_.AZURE_SPEECH_LANGUAGE = cfg.language;
+        if (cfg.defaultTargetLanguage) window._env_.DEFAULT_TARGET_LANGUAGE = cfg.defaultTargetLanguage;
+        console.log('[AzureConfig] window._env_ set from /api/config:', window._env_);
+    } catch (e) {
+        console.error('[AzureConfig] Failed to fetch config from backend API:', e);
+    }
+}
+
+// Usage for static hosting:
+//   await fetchAndSetEnvFromApi();
+//   // then use AzureConfig as normal
 
 const AzureConfig = {
     // Your Azure Speech Service subscription key
