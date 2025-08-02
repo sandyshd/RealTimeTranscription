@@ -1,7 +1,10 @@
+// Load environment variables from .env file for local development
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 
 // Security middleware for production
 app.use((req, res, next) => {
@@ -71,6 +74,13 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
     console.log(`Real-time Transcription Server running on port ${port}`);
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    
+    // Debug environment variables for local development
+    console.log('\n🔧 Environment Variables Status:');
+    console.log(`  AZURE_SPEECH_SUBSCRIPTION_KEY: ${process.env.AZURE_SPEECH_SUBSCRIPTION_KEY ? '✅ Set' : '❌ Not Set'}`);
+    console.log(`  AZURE_SPEECH_SERVICE_REGION: ${process.env.AZURE_SPEECH_SERVICE_REGION || '❌ Not Set (using default: eastus)'}`);
+    console.log(`  AZURE_SPEECH_LANGUAGE: ${process.env.AZURE_SPEECH_LANGUAGE || '❌ Not Set (using default: en-US)'}`);
+    console.log('');
 });
 
 module.exports = app;
